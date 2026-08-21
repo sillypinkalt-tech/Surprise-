@@ -1,188 +1,98 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+// ===== Secret Code =====
+const CODE = "2208";
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3,#fad0c4);
-    min-height:100vh;
-    overflow-x:hidden;
-    color:white;
-}
+// ===== Unlock Website =====
+function unlock() {
 
-.hidden{
-    display:none;
-}
+    const entered = document.getElementById("password").value;
 
-.lock-screen,
-.main{
-    width:100%;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:25px;
-    text-align:center;
-}
+    if (entered === CODE) {
 
-.title{
-    font-size:2.6rem;
-    margin-bottom:30px;
-    animation:glow 2s infinite alternate;
-}
+        document.getElementById("lockScreen").classList.add("hidden");
+        document.getElementById("mainPage").classList.remove("hidden");
 
-.subtitle{
-    margin:15px 0 25px;
-    opacity:.95;
-}
+    } else {
 
-input{
-    width:250px;
-    max-width:90%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    text-align:center;
-    font-size:18px;
-    outline:none;
-}
-
-button{
-    margin-top:18px;
-    padding:14px 35px;
-    border:none;
-    border-radius:30px;
-    background:white;
-    color:#ff4f8b;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
-}
-
-button:hover{
-    transform:scale(1.08);
-}
-
-#wrong{
-    margin-top:18px;
-    color:#fff3f3;
-    font-weight:bold;
-}
-
-.timer{
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin-bottom:40px;
-}
-
-.box{
-    width:90px;
-    height:90px;
-    background:rgba(255,255,255,.2);
-    backdrop-filter:blur(10px);
-    border-radius:18px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
-}
-
-.box span{
-    font-size:30px;
-    font-weight:bold;
-}
-
-.box small{
-    margin-top:5px;
-}
-
-.letter{
-    max-width:750px;
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(12px);
-    padding:30px;
-    border-radius:22px;
-    line-height:1.9;
-    box-shadow:0 12px 30px rgba(0,0,0,.2);
-}
-
-.letter h2{
-    margin:20px 0;
-    font-family:'Dancing Script',cursive;
-    font-size:2rem;
-}
-
-.letter p{
-    margin:14px 0;
-}
-
-@keyframes glow{
-    from{
-        text-shadow:0 0 8px white;
-    }
-    to{
-        text-shadow:0 0 22px white,0 0 40px pink;
-    }
-}
-
-/* Floating Hearts */
-
-#hearts{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    overflow:hidden;
-}
-
-.heart{
-    position:absolute;
-    color:white;
-    animation:floatUp linear forwards;
-    opacity:.8;
-}
-
-@keyframes floatUp{
-
-    from{
-        transform:translateY(100vh) scale(.8);
-        opacity:0;
-    }
-
-    20%{
-        opacity:1;
-    }
-
-    to{
-        transform:translateY(-120vh) scale(1.6);
-        opacity:0;
+        document.getElementById("wrong").innerHTML =
+            "❌ Wrong code. Try again ❤️";
     }
 
 }
 
-@media(max-width:600px){
+// ===== Countdown =====
+// Reunion Date: 1 December 2026
+const reunionDate = new Date("December 1, 2026 00:00:00").getTime();
 
-.title{
-    font-size:2rem;
+function updateCountdown() {
+
+    const now = new Date().getTime();
+
+    const distance = reunionDate - now;
+
+    if (distance <= 0) {
+
+        document.getElementById("days").innerHTML = "0";
+        document.getElementById("hours").innerHTML = "0";
+        document.getElementById("minutes").innerHTML = "0";
+        document.getElementById("seconds").innerHTML = "0";
+
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+    const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24))
+        / (1000 * 60 * 60)
+    );
+
+    const minutes = Math.floor(
+        (distance % (1000 * 60 * 60))
+        / (1000 * 60)
+    );
+
+    const seconds = Math.floor(
+        (distance % (1000 * 60))
+        / 1000
+    );
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+
 }
 
-.box{
-    width:75px;
-    height:75px;
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ===== Floating Hearts =====
+
+const heartContainer = document.getElementById("hearts");
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 20) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+    heartContainer.appendChild(heart);
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    }, 10000);
+
 }
 
-.box span{
-    font-size:24px;
-}
-
-.letter{
-    padding:22px;
-}
-
-}
+setInterval(createHeart, 350);

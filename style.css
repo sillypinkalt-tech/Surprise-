@@ -13,7 +13,10 @@ body{
 }
 
 .hidden{
-    display:none;
+    display: none !important;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
 }
 
 .lock-screen,

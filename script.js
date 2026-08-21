@@ -6,7 +6,9 @@ function unlock() {
     const entered = document.getElementById("password").value;
     if (entered === CODE) {
         document.getElementById("lockScreen").classList.add("hidden");
-        document.getElementById("mainPage").classList.remove("hidden");
+        const mainPage = document.getElementById("mainPage");
+        mainPage.classList.remove("hidden");
+        mainPage.classList.add("show"); // adds fade-in effect
     } else {
         document.getElementById("wrong").innerHTML = "❌ Wrong code. Try again ❤️";
     }

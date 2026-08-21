@@ -16,8 +16,10 @@ body {
 .hidden {
     display: none !important;
     visibility: hidden;
-    height: 0;
-    overflow: hidden;
+    height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .lock-screen,
